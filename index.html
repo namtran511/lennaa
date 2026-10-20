@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Hà Nội ➔ TP. Vinh | Gửi Lê Na của anh 20/10 ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #ff4d79;
+      --primary-light: #ff85a2;
+      --primary-dark: #d92b5a;
+      --bg-gradient: linear-gradient(135deg, #fff0f5 0%, #ffd6e7 50%, #ffc2d9 100%);
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --text-main: #4a2033;
+      --text-sub: #7d485e;
+      --gold: #f59e0b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 16px;
+    }
+
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .intro-screen {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 40px 28px;
+      border-radius: 28px;
+      box-shadow: 0 20px 50px rgba(255, 77, 121, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .intro-screen.hidden {
+      opacity: 0;
+      transform: scale(0.85) translateY(-30px);
+      pointer-events: none;
+      position: absolute;
+    }
+
+    .badge-date {
+      display: inline-block;
+      background: rgba(255, 77, 121, 0.12);
+      color: var(--primary-dark);
+      font-weight: 600;
+      font-size: 0.84rem;
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+
+    .envelope-wrapper {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      margin: 10px auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ff7597, #ff3868);
+      border-radius: 50%;
+      box-shadow: 0 14px 30px rgba(255, 56, 104, 0.35);
+      cursor: pointer;
+      animation: pulse-heart 2s infinite;
+    }
+
+    .envelope-icon {
+      font-size: 56px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+    }
+
+    @keyframes pulse-heart {
+      0%, 100% { transform: scale(1); box-shadow: 0 14px 30px rgba(255, 56, 104, 0.35); }
+      50% { transform: scale(1.07); box-shadow: 0 18px 40px rgba(255, 56, 104, 0.55); }
+    }
+
+    .intro-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.4rem;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+    }
+
+    .intro-sub {
+      font-size: 0.96rem;
+      color: var(--text-sub);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff4d79 0%, #ff2a5f 100%);
+      color: #fff;
+      border: none;
+      padding: 15px 32px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(255, 42, 95, 0.35);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(255, 42, 95, 0.48);
+    }
+
+    .btn-primary:active { transform: scale(0.96); }
+
+    .main-card {
+      position: relative;
+      z-index: 10;
+      max-width: 550px;
+      width: 100%;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 32px;
+      padding: 32px 24px;
+      box-shadow: 0 25px 60px rgba(217, 43, 90, 0.22), 0 0 0 1.5px rgba(255, 255, 255, 0.9) inset;
+      display: none;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .main-card.active { display: block; opacity: 1; transform: translateY(0); }
+
+    .header-greeting { text-align: center; margin-bottom: 22px; }
+    .header-greeting h1 { font-family: 'Dancing Script', cursive; font-size: 2.65rem; color: var(--primary-dark); line-height: 1.2; margin-bottom: 6px; }
+    .header-greeting p { font-size: 0.9rem; color: var(--text-sub); font-weight: 500; }
+
+    .distance-box { background: linear-gradient(135deg, rgba(255, 240, 246, 0.95), rgba(255, 224, 236, 0.95)); border: 1.5px solid rgba(255, 133, 162, 0.4); border-radius: 22px; padding: 18px 20px; margin-bottom: 24px; text-align: center; }
+    .km-badge { display: inline-block; background: #fff; color: var(--primary-dark); font-size: 0.78rem; font-weight: 700; padding: 4px 12px; border-radius: 999px; box-shadow: 0 3px 10px rgba(255, 77, 121, 0.15); margin-bottom: 10px; }
+    .route-visual { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; position: relative; }
+    .location-point { display: flex; flex-direction: column; align-items: center; gap: 5px; font-weight: 700; font-size: 0.9rem; color: var(--primary-dark); z-index: 2; min-width: 90px; }
+    .location-point small { font-weight: 500; font-size: 0.75rem; color: var(--text-sub); }
+    .location-point span.icon { font-size: 1.5rem; background: #fff; width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(255, 77, 121, 0.22); }
+    .flight-path { flex: 1; height: 2px; border-top: 2.5px dashed var(--primary-light); margin: 0 8px; position: relative; top: -16px; }
+    .moving-icon { position: absolute; top: -15px; left: 0; font-size: 1.35rem; animation: move-to-vinh 3.2s ease-in-out infinite; }
+    @keyframes move-to-vinh { 0% { left: 2%; transform: translateY(0) scale(0.95); } 50% { transform: translateY(-4px) scale(1.12); } 100% { left: 82%; transform: translateY(0) scale(0.95); } }
+    .distance-caption { font-size: 0.83rem; color: var(--text-sub); font-style: italic; }
+
+    .letter-content { background: rgba(255, 255, 255, 0.8); border-radius: 22px; padding: 22px 20px; margin-bottom: 24px; line-height: 1.78; font-size: 0.96rem; color: var(--text-main); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03); border-left: 4px solid var(--primary); }
+    .letter-content p { margin-bottom: 14px; }
+    .letter-content p:last-child { margin-bottom: 0; }
+    .highlight-name { font-weight: 700; color: var(--primary-dark); }
+    .highlight-promise { background: linear-gradient(120deg, rgba(255, 77, 121, 0.16) 0%, rgba(255, 184, 204, 0.28) 100%); padding: 2px 7px; border-radius: 6px; font-weight: 700; color: #b81d47; }
+
+    .promise-ticket { background: linear-gradient(135deg, #fff9fb 0%, #ffeef4 100%); border: 2px dashed var(--primary-light); border-radius: 22px; padding: 20px; margin-bottom: 24px; position: relative; overflow: hidden; }
+    .ticket-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 77, 121, 0.2); padding-bottom: 10px; margin-bottom: 14px; }
+    .ticket-title { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--primary-dark); display: flex; align-items: center; gap: 6px; }
+    .ticket-badge { background: var(--gold); color: #fff; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
+    .ticket-body { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.85rem; margin-bottom: 12px; }
+    .ticket-field span.label { display: block; font-size: 0.74rem; color: var(--text-sub); margin-bottom: 2px; }
+    .ticket-field span.value { font-weight: 700; color: var(--text-main); font-size: 0.92rem; }
+    .ticket-note { background: rgba(255, 77, 121, 0.09); border-radius: 12px; padding: 10px 12px; font-size: 0.84rem; color: var(--primary-dark); font-weight: 500; text-align: center; }
+    .action-area { text-align: center; }
+    .hug-response { display: none; margin-top: 18px; padding: 16px; border-radius: 18px; background: linear-gradient(135deg, #ff4d79, #ff7597); color: #fff; font-weight: 500; font-size: 0.92rem; line-height: 1.55; box-shadow: 0 12px 25px rgba(255, 77, 121, 0.3); animation: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    @keyframes pop-in { 0% { opacity: 0; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1); } }
+    .signature { text-align: right; font-family: 'Dancing Script', cursive; font-size: 1.65rem; color: var(--primary-dark); margin-top: 10px; }
+    .music-btn { position: fixed; top: 16px; right: 16px; z-index: 50; width: 44px; height: 44px; border-radius: 50%; border: none; background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(8px); box-shadow: 0 4px 15px rgba(255, 77, 121, 0.25); cursor: pointer; font-size: 1.2rem; display: none; align-items: center; justify-content: center; }
+    .music-btn.playing { animation: spin 6s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <canvas id="bg-canvas"></canvas>
+  <button id="music-toggle" class="music-btn" title="Bật/Tắt nhạc">🎵</button>
+
+  <div class="intro-screen" id="intro-screen">
+    <div class="badge-date">✨ Happy Vietnamese Women's Day 20/10 ✨</div>
+    <div class="envelope-wrapper" id="open-envelope"><div class="envelope-icon">💌</div></div>
+    <h2 class="intro-title">Gửi về TP. Vinh cho Lê Na</h2>
+    <p class="intro-sub">Một món quà nhỏ vượt 300km từ Hà Nội gửi tới cô gái anh thương nhất.<br/>Chạm vào bức thư để mở lời nhắn của anh nhé!</p>
+    <button class="btn-primary" id="btn-open"><span>Mở thư từ Hà Nội</span> ❤️</button>
+  </div>
+
+  <div class="main-card" id="main-card">
+    <div class="header-greeting">
+      <div class="badge-date">🌸 Chúc mừng ngày Phụ nữ Việt Nam 20/10 🌸</div>
+      <h1>Lê Na của anh ❤️</h1>
+      <p>Cô gái xinh đẹp nhất Thành phố Vinh trong lòng anh</p>
+    </div>
+
+    <div class="distance-box">
+      <div class="km-badge">📍 Khoảng cách ~300 km • Đong đầy nỗi nhớ</div>
+      <div class="route-visual">
+        <div class="location-point"><span class="icon">🏙️</span><span>Hà Nội</span><small>Nơi anh ở</small></div>
+        <div class="flight-path"><span class="moving-icon">🚄💖</span></div>
+        <div class="location-point"><span class="icon">👸</span><span>TP. Vinh</span><small>Lê Na ❤️</small></div>
+      </div>
+      <div class="distance-caption">"Từ Hà Nội về Vinh tuy xa mà gần, vì mỗi ngày anh đều đếm ngược để được về bên em..."</div>
+    </div>
+
+    <div class="letter-content">
+      <p>Gửi <span class="highlight-name">Lê Na</span> — người yêu bé nhỏ của anh ở Vinh,</p>
+      <p>Chúc mừng ngày Phụ nữ Việt Nam 20/10! Hôm nay ở ngoài Hà Nội nhìn người ta tay trong tay tặng hoa, anh nhớ em và muốn bay về Vinh ngay lập tức. Thương em nhiều lắm vì tụi mình yêu xa, những dịp lễ thế này anh chưa thể ở ngay bên cạnh ôm em được.</p>
+      <p>Cảm ơn em vì đã luôn kiên nhẫn, dịu dàng và thương anh. Nhân ngày 20/10, anh gửi về Vinh cho em một lời hứa chắc chắn: <span class="highlight-promise">Anh sắp về Vinh gặp em rồi!</span></p>
+      <p>300 cây số từ Hà Nội về Thành phố Vinh sẽ chẳng là gì cả. Đợi anh thêm một chút nữa thôi nhé, ngày về anh sẽ ôm em thật chặt, đèo em đi lượn khắp phố phường ở Vinh và bù đắp cho em tất cả những ngày xa nhớ. Chúc công chúa của anh 20/10 thật xinh đẹp, rạng rỡ và luôn tràn ngập niềm vui!</p>
+      <div class="signature">Từ Hà Nội gửi ngàn nụ hôn về Vinh ❤️</div>
+    </div>
+
+    <div class="promise-ticket">
+      <div class="ticket-header"><div class="ticket-title">🎫 VÉ HẸN ƯỚC: HÀ NỘI ➔ TP. VINH</div><div class="ticket-badge">ƯU TIÊN ĐẶC BIỆT</div></div>
+      <div class="ticket-body">
+        <div class="ticket-field"><span class="label">Người nhận tại TP. Vinh</span><span class="value">Lê Na yêu dấu ❤️</span></div>
+        <div class="ticket-field"><span class="label">Thời gian khởi hành</span><span class="value" style="color: #d92b5a;">Sắp về gặp em rồi!</span></div>
+        <div class="ticket-field"><span class="label">Quyền lợi khi anh về Vinh</span><span class="value">1000 cái ôm + Đi ăn + Lượn phố Vinh</span></div>
+        <div class="ticket-field"><span class="label">Cam kết từ Hà Nội</span><span class="value" style="color: #16a34a;">✔ Uy tín 1000%</span></div>
+      </div>
+      <div class="ticket-note">💝 Chụp màn hình giữ kỹ chiếc vé này nha Lê Na, ngay khi anh đặt chân về tới Vinh là em được đem ra bắt đền anh bất cứ lúc nào!</div>
+    </div>
+
+    <div class="action-area">
+      <button class="btn-primary" id="btn-hug"><span>Nhận lời hứa & Gửi cái ôm ra Hà Nội</span> 🤗💖</button>
+      <div class="hug-response" id="hug-response">🎉 <strong>Tín hiệu từ TP. Vinh đã gửi tới Hà Nội!</strong><br/>Anh đã nhận được cái ôm ấm áp của Lê Na rồi nha 🥰 Em cứ chuẩn bị lên đồ xinh đẹp đi nhé, anh sắp xếp xong là phi từ Hà Nội về Vinh gặp em liền! Yêu em nhất trên đời! ❤️✨</div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resizeCanvas); resizeCanvas();
+    const symbols = ['❤️', '💖', '🌸', '✨', '🌷', '💕'];
+    class Particle {
+      constructor(isBurst = false, x = null, y = null) { this.reset(isBurst, x, y); }
+      reset(isBurst = false, x = null, y = null) {
+        this.x = x !== null ? x : Math.random() * canvas.width;
+        this.y = y !== null ? y : (isBurst ? canvas.height / 2 : -30 - Math.random() * 100);
+        this.size = 14 + Math.random() * 14;
+        this.symbol = symbols[Math.floor(Math.random() * symbols.length)];
+        this.speedY = isBurst ? (Math.random() * -8 - 2) : (1 + Math.random() * 1.8);
+        this.speedX = isBurst ? ((Math.random() - 0.5) * 10) : ((Math.random() - 0.5) * 1.2);
+        this.gravity = isBurst ? 0.18 : 0;
+        this.opacity = 0.75 + Math.random() * 0.25;
+        this.angle = Math.random() * Math.PI * 2;
+        this.spin = (Math.random() - 0.5) * 0.03;
+        this.isBurst = isBurst;
+      }
+      update() {
+        this.y += this.speedY; this.x += this.speedX + Math.sin(this.angle) * 0.4; this.angle += this.spin;
+        if (this.isBurst) { this.speedY += this.gravity; this.opacity -= 0.008; }
+        if (this.y > canvas.height + 40 || this.opacity <= 0) { if (this.isBurst) return false; this.reset(false); }
+        return true;
+      }
+      draw() { ctx.save(); ctx.globalAlpha = Math.max(0, this.opacity); ctx.font = `${this.size}px serif`; ctx.translate(this.x, this.y); ctx.rotate(this.angle * 0.2); ctx.fillText(this.symbol, 0, 0); ctx.restore(); }
+    }
+    for (let i = 0; i < 28; i++) { const p = new Particle(false); p.y = Math.random() * canvas.height; particles.push(p); }
+    function burstHearts(centerX, centerY, count = 35) { for (let i = 0; i < count; i++) particles.push(new Particle(true, centerX, centerY)); }
+    function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles = particles.filter(p => { const alive = p.update(); if (alive) p.draw(); return alive; }); requestAnimationFrame(animate); }
+    animate();
+
+    let audioCtx = null; let isPlayingMusic = false; let musicInterval = null;
+    const melodyNotes = [523.25, 659.25, 783.99, 1046.50, 783.99, 659.25, 587.33, 698.46, 880.00, 1174.66, 880.00, 698.46, 523.25, 659.25, 783.99, 1046.50, 987.77, 783.99, 659.25, 587.33, 523.25, 659.25, 783.99, 523.25];
+    let noteIndex = 0;
+    function playSingleNote(freq) {
+      if (!audioCtx || !isPlayingMusic) return;
+      const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain(); osc.type = 'sine'; osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.001, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.08, audioCtx.currentTime + 0.05); gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.4);
+      osc.connect(gain); gain.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 1.45);
+    }
+    function startMusicBox() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      isPlayingMusic = true;
+      const musicBtn = document.getElementById('music-toggle'); musicBtn.style.display = 'flex'; musicBtn.classList.add('playing'); musicBtn.textContent = '🎵';
+      playSingleNote(melodyNotes[noteIndex]);
+      if (!musicInterval) musicInterval = setInterval(() => { if (isPlayingMusic) { noteIndex = (noteIndex + 1) % melodyNotes.length; playSingleNote(melodyNotes[noteIndex]); } }, 480);
+    }
+    document.getElementById('music-toggle').addEventListener('click', (e) => { isPlayingMusic = !isPlayingMusic; e.currentTarget.classList.toggle('playing', isPlayingMusic); e.currentTarget.textContent = isPlayingMusic ? '🎵' : '🔇'; });
+
+    const introScreen = document.getElementById('intro-screen'); const mainCard = document.getElementById('main-card'); const btnOpen = document.getElementById('btn-open'); const openEnvelope = document.getElementById('open-envelope'); const btnHug = document.getElementById('btn-hug'); const hugResponse = document.getElementById('hug-response');
+    function openGift() { startMusicBox(); burstHearts(window.innerWidth / 2, window.innerHeight / 2, 42); introScreen.classList.add('hidden'); setTimeout(() => { introScreen.style.display = 'none'; mainCard.classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); }, 450); }
+    btnOpen.addEventListener('click', openGift); openEnvelope.addEventListener('click', openGift);
+    btnHug.addEventListener('click', (e) => { const rect = e.currentTarget.getBoundingClientRect(); burstHearts(rect.left + rect.width / 2, rect.top, 45); hugResponse.style.display = 'block'; btnHug.innerHTML = '<span>Đã gửi cái ôm từ TP. Vinh ra Hà Nội!</span> ❤️🥰'; });
+  </script>
+</body>
+</html>
